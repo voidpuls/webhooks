@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  
+  <!-- Include the Netlify Identity widget -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6d5dfc, #c783ff);
+    }
+
+    /* Login Page Container */
+    .login-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 350px;
+      max-width: 90%;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 24px;
+    }
+
+    .login-container p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    /* Netlify Identity Button */
+    [data-netlify-identity-button] {
+      background-color: #6d5dfc;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    [data-netlify-identity-button]:hover {
+      background-color: #5840db;
+    }
+
+    /* Logout Button */
+    .logout-button {
+      background-color: #ff4b4b;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #d43f3f;
+    }
+
+    /* Footer */
+    .login-container footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .login-container footer a {
+      color: #6d5dfc;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Welcome Back!</h2>
+    <p>Please log in to access your account.</p>
+
+    <!-- Login Button (opens the Netlify Identity modal) -->
+    <div data-netlify-identity-button>Login with Netlify Identity</div>
+
+    <!-- Logout button, hidden initially, shown after login -->
+    <button class="logout-button" style="display: none;">Log out</button>
+
+    <!-- Optional footer content for the login page -->
+    <footer>
+      <p>Not a member? <a href="#">Sign up here</a></p>
+    </footer>
+  </div>
+
+  <script>
+    // Initialize Netlify Identity
+    netlifyIdentity.init();
+
+    // Handle login and redirect after successful login
+    netlifyIdentity.on('login', user => {
+      console.log("User logged in:", user);
+      window.location.href = '/games/games/games/games/games/';  // Redirect to dashboard or desired page
+    });
+
+    // Handle logout
+    document.querySelector('.logout-button').addEventListener('click', () => {
+      netlifyIdentity.logout();
+      window.location.reload(); // Refresh page after logout
+    });
+
+    // Show logout button after login, hide login button
+    netlifyIdentity.on('login', () => {
+      document.querySelector('[data-netlify-identity-button]').style.display = 'none';
+      document.querySelector('.logout-button').style.display = 'block';
+    });
+
+    // Hide logout button and show login button after logout
+    netlifyIdentity.on('logout', () => {
+      document.querySelector('[data-netlify-identity-button]').style.display = 'block';
+      document.querySelector('.logout-button').style.display = 'none';
+    });
+
+    // If already logged in, show logout button
+    netlifyIdentity.on('init', user => {
+      if (user) {
+        document.querySelector('.logout-button').style.display = 'block';
+        document.querySelector('[data-netlify-identity-button]').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
